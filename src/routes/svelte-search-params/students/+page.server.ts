@@ -1,0 +1,26 @@
+import { STUDENTS } from '$lib/server/db';
+
+export const load = ({ url }) => {
+	let search_from_server = url.searchParams.get('search')?.toString() || '';
+	let id_from_server = url.searchParams.get('page_num') || 1;
+
+	/* {
+	  search: string;
+	  page: number;
+	} */
+	let students = STUDENTS;
+
+	if (search_from_server) {
+		search_from_server = search_from_server.toLowerCase();
+		students = students.filter((s) => s.name.toLowerCase().includes(search_from_server));
+	}
+	console.log(students.slice(0, 1))
+	console.log(search_from_server)
+	console.log(id_from_server)
+	return {
+		search_from_server,
+		id_from_server,
+		students,
+		
+	}
+	};
