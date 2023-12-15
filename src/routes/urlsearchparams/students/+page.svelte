@@ -13,7 +13,7 @@
   
     const updateSearch = debounce((search) => {
           goto(`?search=${search}`, { replaceState: true, keepFocus: true });
-        }, 200);
+        }, 100);
 
 
     const handleInput = (event: Event) => {
