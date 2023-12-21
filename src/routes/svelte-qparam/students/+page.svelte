@@ -6,6 +6,8 @@
     import { Input } from "$lib/components/ui/input"
     import * as Table from "$lib/components/ui/table";
 
+    import { qparam } from 'svelte-qparam'
+
 
     export let data;
 
@@ -13,6 +15,7 @@
     
     $: ({ values } = data)
     $: ({ search, id } = values)
+
   
     const updateSearch = debounce((search) => {
           goto(`?search=${search}`, { replaceState: true, keepFocus: true });
@@ -24,6 +27,8 @@
       };
 
       // $: search_qparam = $page.url.searchParams.get('search') || ''
+
+
   </script>
 
 

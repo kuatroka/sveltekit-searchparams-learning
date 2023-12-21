@@ -7,11 +7,15 @@
     import { Input } from "$lib/components/ui/input"
     import * as Table from "$lib/components/ui/table";
     import { Button } from "$lib/components/ui/button"
+	import { derived, writable } from 'svelte/store';
+	import type { number } from 'svelte-qparam/serde';
 
 
     export let data;
-    // $: search = queryParam("search", ssp.string(""));
-    // $: page_num = queryParam("page_num", ssp.number(2));
+    $: search_param = queryParam("search", ssp.string(""));
+    $: id_param = queryParam("id", ssp.number(0));
+    $: skip_param = queryParam("skip", ssp.number(0));
+    
 
     $: ({ search_from_server, id_from_server, skip_from_server } = data);
 
@@ -60,13 +64,21 @@
 
     // const debouncedUpdateQueryString = (key: string, value: string) => debounce(updateQueryString, 100)(key, value);
 
-  </script>
 
+    // let buttonValue = derived(skip_param, id_param, ($skip_param, $id_param) => $skip_param * $id_param );
+    // import { derived } from 'svelte/store';
+
+    // const buttonValue = derived([skip_param, id_param], ([$skip_param, $id_param]) => ($skip_param ?? 0) * ($id_param ?? 0));
+    // $buttonValue = $skip_param * $id_param
+    
+
+  </script>
 
 <div class="ml-3">
 
-  <h1 class="mb-8"  > svelte-search-params with multiple key</h1>
-  <h2>It seems like I don't even use svelte-search-params here and it work in `+page.server.ts` too</h2>
+  <h1 class="mb-8"  > svelte-search-params with multiple params</h1>
+  <h2>Combines Svelte stores from  <code>svelte-search-params</code> and <code>on:click</code> functions for buttons </h2>
+  <h2>It works in `+page.server.ts` too</h2>
 </div>
 
 
@@ -80,26 +92,29 @@
       name="search"
       placeholder="Filter names..."
       type="search"
-      value={search_from_server}
-      on:input={(x) => updateQueryString('search', x.currentTarget.value)}
-    />
-  </div>
+      bind:value={$search_param}
+      />
+    </div>
+    <!-- on:input={(x) => updateQueryString('search', x.currentTarget.value)} -->
 
 
   <div class="gap-2 ml-2">
     <Input
       placeholder="Filter names..."
       type="range"
-      value={id_from_server}
-      on:input={(x) => updateQueryString('id', x.currentTarget.value)}
-    />
-  </div>
+      bind:value={$id_param}
+      />
+    </div>
+    <!-- on:input={(x) => updateQueryString('id', x.currentTarget.value)} -->
 
   <div class="gap-2 ml-2">
-    <Button on:click={() => updateQueryString('skip', id_from_server * 3)}>
-      Add Search String
-    </Button>
-  </div>
+    <Button 
+    on:click={() => updateQueryString('skip', $id_param * 3)}
+    >
+    Generate skip value
+  </Button>
+</div>
+<!-- bind:value={$skip_param} -->
 
   <Table.Root class="mt-4 ml-2 overflow-x-hidden">
     <Table.Caption>A list of students.</Table.Caption>

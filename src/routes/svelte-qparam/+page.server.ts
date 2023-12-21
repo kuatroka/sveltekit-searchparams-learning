@@ -1,9 +1,8 @@
 import { STUDENTS } from '$lib/server/db';
-import { extract } from './extract.js'
-
+import { extract } from './extract.js';
 
 export const load = ({ url }) => {
-	const { values } = extract(url)
+	const { values } = extract(url);
 	/* {
 	  search: string;
 	  sex: number;
@@ -15,25 +14,19 @@ export const load = ({ url }) => {
 		values.search = values.search.toLowerCase();
 		students = students.filter((s) => s.name.toLowerCase().includes(values.search));
 	}
-  
+
 	// console.log(values)
-	console.log(students)
-  
+	console.log(students);
+
 	return {
 		values,
 		students
-	}
-  }
-
-
-
-
+	};
+};
 
 // export async function load({ url }) {
 // 	let students = STUDENTS;
 // 	let search_param = get(search);
-
-
 
 // 	// let search_param = url.searchParams.get('search')  || '';
 
