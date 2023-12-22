@@ -70,7 +70,7 @@
 
     // const buttonValue = derived([skip_param, id_param], ([$skip_param, $id_param]) => ($skip_param ?? 0) * ($id_param ?? 0));
     // $buttonValue = $skip_param * $id_param
-    
+
 
   </script>
 
@@ -110,9 +110,9 @@
   <div class="gap-2 ml-2">
     <Button 
     on:click={() => updateQueryString('skip', $id_param * 3)}
-    >
-    Generate skip value
-  </Button>
+  >
+  Generate skip value
+</Button>
 </div>
 <!-- bind:value={$skip_param} -->
 

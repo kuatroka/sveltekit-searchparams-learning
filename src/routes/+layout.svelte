@@ -41,6 +41,10 @@
 				</Menubar.Content>
 			</Menubar.Menu>
 
+			<Menubar.Menu>
+				<a href="/search-box-problem"><Menubar.Item>search-box-problem</Menubar.Item></a>
+			</Menubar.Menu>
+
 		</Menubar.Root>
 		
 	</nav>
