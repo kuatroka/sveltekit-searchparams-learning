@@ -8,7 +8,7 @@
 	import {createTable, Subscribe, Render,	createRender} from "svelte-headless-table";
 	import {addSortBy, addPagination,	addTableFilter,
 		addSelectedRows,addHiddenColumns, addResizedColumns	} from "svelte-headless-table/plugins";
-	import { readable, writable, type Writable } from "svelte/store";
+	import { writable, type Writable } from "svelte/store";
 	import * as Table from "$lib/components/ui/table";
 	import { Button } from "$lib/components/ui/button";
 	import { CaretSort, ChevronDown, ChevronUp } from "radix-icons-svelte";

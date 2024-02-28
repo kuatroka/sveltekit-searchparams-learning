@@ -8,7 +8,6 @@
     import * as Table from "$lib/components/ui/table";
     import { Button } from "$lib/components/ui/button"
 	import { derived, writable } from 'svelte/store';
-	import type { number } from 'svelte-qparam/serde';
 
 
     export let data;

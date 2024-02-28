@@ -3,13 +3,16 @@
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
 
+  
+
+
     import { Input } from "$lib/components/ui/input"
     import * as Table from "$lib/components/ui/table";
 
 
     export let data;
+    $:( {student_max_id, students} = data);
 
-    // $: search = 
   
     const updateSearch = debounce((search) => {
           goto(`?search=${search}`, { replaceState: true, keepFocus: true });
@@ -20,13 +23,49 @@
         updateSearch((event.target as HTMLInputElement).value);
       };
 
-      $: search_qparam = $page.url.searchParams.get('search') || ''
+    $: search_qparam = $page.url.searchParams.get('search') || ''
+
+    $: id_param = $page.url.searchParams.get('id') || student_max_id;
+    $: student_name_param = students.find(student => student.id === id_param)?.name || 'Unknown';
+
+    const updateQueryString = (name: string, value: string | number) => {
+        const params = new URLSearchParams(window.location.search);
+        params.set(name, value.toString());
+        goto(`?${params.toString()}`);
+        };
+
+        // Debounced version of updateQueryString for 'id' parameter
+    const debouncedUpdateId = debounce((idValue: string) => {
+        updateQueryString('id', idValue);
+    }, 200); // Adjust debounce delay as needed
+
+
   </script>
-
-
   <h1 class="mb-8"  > Standard url.searchParams with one key</h1>
+student_max_id:  {student_max_id} - {new Date().toISOString()} <br>
+student's name: {student_name_param}
+
+
+
+
+
+
 
 <!-- //////////////////////////////////////////////////////// -->
+<div class="gap-2 ml-2 w-48">
+  <input
+    placeholder="Filter names..."
+    type="range"
+    min=0
+    max = {student_max_id}
+    value={id_param}
+    on:input={(x) => debouncedUpdateId(x.currentTarget.value)}
+    />
+    {id_param}
+  </div>
+
+
+
 <h2 class="l-4  mb-8 text-3xl"  > Using html input</h2>
 <div class="pl-3">
   <input 
@@ -93,8 +132,8 @@
 
 
 
-   <style>
+   <!-- <style>
     a {
       display: block;
     }
-  </style>
+  </style> -->
